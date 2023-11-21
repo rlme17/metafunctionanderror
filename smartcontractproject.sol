@@ -1,33 +1,24 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract ErrorContract {
-    address public owner;
-    uint256 public value;
+contract BankContract {
+    mapping(address => uint) public balances;
 
-    constructor() {
-        owner = msg.sender;
+    function deposit(uint amount) public {
+        require(amount > 0, "Deposit amount must be greater than 0");
+        assert(balances[msg.sender] + amount >= balances[msg.sender]);
+        balances[msg.sender] += amount;
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only the owner can call this function");
-        _;
-    }
+    function withdraw(uint amount) public {
+        require(amount > 0, "Withdrawal amount must be greater than 0");
+        require(balances[msg.sender] >= amount, "Insufficient funds");
+        assert(balances[msg.sender] - amount <= balances[msg.sender]);
 
-    function setValue(uint256 _newValue) public onlyOwner {
-        require(_newValue > 0, "Value must be greater than zero");
-        value = _newValue;
-    }
-
-    function assertsample(uint256 a, uint256 b) public view onlyOwner {
-        assert(a + b == 30);
-    }
-
-    function revertsample(uint256 input) public view onlyOwner {
-        require(input > 10, "Input must be greater than 10");
-
-        if (input % 2 == 0) {
-            revert("Input is even, so transaction is reverted");
+        if (amount > 1000) {
+            revert("Withdrawal amount too high");
         }
+
+        balances[msg.sender] -= amount;
     }
 }
