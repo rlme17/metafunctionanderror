@@ -1,41 +1,30 @@
-# ErrorContract
+# BankContract Solidity Smart Contract
 
 ## Overview
 
-The `ErrorContract` is a simple Solidity smart contract that demonstrates the usage of `require()`, `assert`, and `revert` statements. It includes functions that perform basic operations and use these statements to handle different scenarios.
+The `BankContract` is a simple Ethereum smart contract written in Solidity that simulates a basic banking system allowing users to deposit and withdraw funds. It keeps track of user balances and includes functionalities for depositing and withdrawing Ethereum tokens.
 
-## Contract Details
+## Functionalities
 
-### Functions
+### Deposit Function
 
-#### `setValue(uint256 _newValue)`
+The `deposit` function enables users to deposit a specified amount of Ethereum tokens into the contract. It validates that the deposit amount is greater than zero and ensures no overflow occurs during the addition of funds.
 
-- Description: This function allows the owner to set a new value for the `value` variable.
-- Parameters:
-  - `_newValue` (uint256): The new value to set. It must be greater than zero.
-- Modifiers:
-  - `onlyOwner`: Ensures that only the owner of the contract can call this function.
-- Revert Conditions:
-  - If `_newValue` is not greater than zero.
+### Withdraw Function
 
-#### `assertsample(uint256 a, uint256 b)`
+The `withdraw` function allows users to withdraw Ethereum tokens from their account within the contract. It verifies that the withdrawal amount is greater than zero and that the user has sufficient funds. Additionally, it limits the withdrawal amount to a maximum of 1000 tokens to prevent excessively high withdrawals.
 
-- Description: This function demonstrates the use of `assert` statement by checking if the sum of two numbers `a` and `b` equals 30.
-- Parameters:
-  - `a` (uint256): The first number for addition.
-  - `b` (uint256): The second number for addition.
-- Modifiers:
-  - `onlyOwner`: Ensures that only the owner of the contract can call this function.
-- Revert Conditions:
-  - If the sum of `a` and `b` is not equal to 30.
+## Usage
 
-#### `revertsample(uint256 input)`
+The contract exposes the following functions:
 
-- Description: This function showcases the use of `revert` statement with a conditional check based on the input value.
-- Parameters:
-  - `input` (uint256): The input value to check.
-- Modifiers:
-  - `onlyOwner`: Ensures that only the owner of the contract can call this function.
-- Revert Conditions:
-  - If `input` is not greater than 10.
-  - If `input` is even.
+- `deposit(uint amount)`: Allows users to deposit tokens into their account.
+- `withdraw(uint amount)`: Permits users to withdraw tokens from their account within certain limits.
+
+## License
+
+This smart contract is released under the MIT License. For more information, please see the `LICENSE` file.
+
+## Disclaimer
+
+Please note that this contract is for educational purposes and should not be used in a production environment without appropriate security audits and modifications.
